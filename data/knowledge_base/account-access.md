@@ -1,0 +1,2 @@
+# Account access
+Locked accounts unlock automatically after 30 minutes. If access is still unavailable, verify the account email and contact support for identity verification. Do not send passwords or one-time codes.

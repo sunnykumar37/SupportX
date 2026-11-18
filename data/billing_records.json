@@ -1,0 +1,5 @@
+[
+  {"invoice_id": "INV-1001", "customer_id": "CUST-001", "amount": 49.99, "status": "paid", "date": "2026-10-30"},
+  {"invoice_id": "INV-1002", "customer_id": "CUST-002", "amount": 19.99, "status": "paid", "date": "2026-11-02"},
+  {"invoice_id": "INV-1003", "customer_id": "CUST-003", "amount": 99.00, "status": "refunded", "date": "2026-11-05"}
+]

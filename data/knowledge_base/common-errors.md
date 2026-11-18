@@ -1,0 +1,2 @@
+# Common technical errors
+If the application shows a blank screen, clear the application cache, restart it, and install the latest supported version. If the error continues, record the error text and operating system for support.

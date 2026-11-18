@@ -1,0 +1,5 @@
+[
+  {"customer_id": "CUST-001", "status": "active", "email_verified": true},
+  {"customer_id": "CUST-002", "status": "locked", "email_verified": true},
+  {"customer_id": "CUST-003", "status": "active", "email_verified": false}
+]

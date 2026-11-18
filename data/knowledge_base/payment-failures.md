@@ -1,0 +1,2 @@
+# Payment failures
+For a declined payment, confirm the card is active, the billing address matches, and the bank permits online transactions. Retrying once after correcting details is recommended; repeated declines should be referred to the bank.

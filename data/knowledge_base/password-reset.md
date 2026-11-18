@@ -1,0 +1,2 @@
+# Password reset
+Select Forgot password on the sign-in page, enter the verified account email, and follow the link sent by email. Reset links expire after 30 minutes. Support never asks for an existing password.

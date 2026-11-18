@@ -1,0 +1,2 @@
+# Application installation
+Download the installer from the official account portal, ensure the operating system meets the published requirements, and run the installer as a normal user. Restart the application after installation.
