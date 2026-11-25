@@ -1,8 +1,28 @@
-.venv/
-__pycache__/
-.pytest_cache/
+# Environment and secrets
 .env
-storage/tickets.json
-storage/execution.jsonl
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Runtime data
+storage/
+*.log
+
+# Vector database and local cache
+.chroma/
 chroma_db/
-*.pyc
+.cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

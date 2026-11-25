@@ -19,7 +19,6 @@ class ClassifierAgent:
 
     # Tool 2: Classify the customer ticket
     def classify_ticket(self, message: str) -> tuple[str, float, str]:
-
         text = self.normalize_ticket_text(message)
 
         keyword_groups = {
@@ -34,7 +33,6 @@ class ClassifierAgent:
                 r"\btransaction\b",
                 r"\bdouble[- ]charged\b",
             ],
-
             "Technical": [
                 r"\berror\b",
                 r"\bfailure\b",
@@ -48,7 +46,6 @@ class ClassifierAgent:
                 r"\btechnical\b",
                 r"\bexception\b",
             ],
-
             "Account": [
                 r"\blogin\b",
                 r"\blog in\b",
@@ -65,12 +62,10 @@ class ClassifierAgent:
 
         # Calculate category scores
         for category, patterns in keyword_groups.items():
-
             matches = sum(
                 bool(re.search(pattern, text))
                 for pattern in patterns
             )
-
             scores[category] = matches
 
         # Sort categories by their scores
@@ -99,10 +94,7 @@ class ClassifierAgent:
             )
 
         # Calculate confidence
-        confidence = min(
-            0.95,
-            0.58 + (matches - 1) * 0.12
-        )
+        confidence = min(0.95, 0.70 + (matches - 1) * 0.10)
 
         explanation = (
             f"Matched {matches} {category.lower()} "
@@ -113,7 +105,6 @@ class ClassifierAgent:
 
     # Main agent execution
     def run(self, ticket: TicketState) -> TicketState:
-
         self.logger.event(
             "agent_activated",
             ticket,
@@ -124,11 +115,16 @@ class ClassifierAgent:
             self.classify_ticket(ticket.original_message)
         )
 
-        assigned = {
-            "Billing": "billing_specialist",
-            "Technical": "technical_specialist",
-            "Account": "account_specialist"
-        }.get(category, "unassigned")
+        # Assign a specialist only when the category is sufficiently clear.
+        if confidence < self.LOW_CONFIDENCE_THRESHOLD:
+            category = "Other"
+            assigned = "unassigned"
+        else:
+            assigned = {
+                "Billing": "billing_specialist",
+                "Technical": "technical_specialist",
+                "Account": "account_specialist"
+            }.get(category, "unassigned")
 
         ticket.update(
             detected_category=category,

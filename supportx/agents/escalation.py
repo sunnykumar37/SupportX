@@ -18,6 +18,10 @@ class EscalationRouter:
         self, ticket: TicketState
     ) -> tuple[bool, str]:
 
+        # Respect an explicit escalation request from a specialist.
+        if ticket.escalation_reason:
+            return True, ticket.escalation_reason
+
         if ticket.confidence_score < settings.confidence_threshold:
             return True, (
                 "Classification confidence is below the support threshold."

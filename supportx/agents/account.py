@@ -44,6 +44,9 @@ class AccountSpecialist:
             "agent_activated", ticket, agent="account_specialist"
         )
 
+        # Reset any previous escalation reason.
+        ticket.escalation_reason = None
+
         account = self.check_account_status(ticket.customer_id)
         valid = self.validate_account_recovery_request(
             ticket.original_message
@@ -70,7 +73,12 @@ class AccountSpecialist:
             )
             ticket.draft_response = (
                 "I could not find an account associated with your "
-                "customer ID. Please verify your details or contact support."
+                "customer ID. Your request will be reviewed by "
+                "human support."
+            )
+            ticket.escalation_reason = (
+                "No account record was found. Human support must verify "
+                "the customer account."
             )
 
         elif account.get("status", "").lower() == "locked":
@@ -79,7 +87,12 @@ class AccountSpecialist:
             )
             ticket.draft_response = (
                 "Your account is currently marked as locked. "
-                "Please contact human support for assistance with recovery."
+                "Your request has been escalated to human support "
+                "for assistance with account recovery."
+            )
+            ticket.escalation_reason = (
+                "The customer account is locked and requires "
+                "human support intervention."
             )
 
         elif not account.get("email_verified", False):
@@ -110,7 +123,11 @@ class AccountSpecialist:
             )
             ticket.draft_response = (
                 "Your account requires further verification. "
-                "Please contact human support for assistance."
+                "Your request will be reviewed by human support."
+            )
+            ticket.escalation_reason = (
+                "The account has an unsupported status and requires "
+                "human verification."
             )
 
         self.logger.event(
